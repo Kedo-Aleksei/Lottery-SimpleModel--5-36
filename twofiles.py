@@ -1,3 +1,4 @@
+B = [[0] * 36, [0] * 36]
 for e in range(1, 3):
     lot = open('{id}.csv'.format(id=e))
     A = list(lot)
@@ -18,7 +19,6 @@ for e in range(1, 3):
         k += M[i]
     for i in range(36):
         K[i] = M[i] * 100 / k
-    B = [[0] * 36, [0] * 36]
     for i in range(36):
         B[e-1][i] = K[i]
-    print(B)
+print(B)
