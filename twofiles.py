@@ -1,4 +1,4 @@
-def pos(fin):
+﻿def pos(fin):
     A = list(fin)
     A.pop(0)
     A.pop(0)  # Удаляем первые две строки
@@ -27,9 +27,9 @@ def pos(fin):
 
 
 B = []
-lot = open('1.csv')
+lot = open('1981.csv')
 B.append(pos(lot))
-lot = open('2.csv')
+lot = open('1992.csv')
 B.append(pos(lot))
 print(B)
 
