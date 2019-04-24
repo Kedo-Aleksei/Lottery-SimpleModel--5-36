@@ -21,4 +21,12 @@ for e in range(1, 3):
         K[i] = M[i] * 100 / k
     for i in range(36):
         B[e-1][i] = K[i]
-print(B)
+print("Вероятности:", B)
+C = [0] * 36
+for i in range(36):
+    C[i] = (B[0][i] + B[1][i]) / 2
+print("Выборочное среднее", C)
+D = [0] * 36
+for i in range(36):
+    D[i] = (((B[0][i] - C[i])**2) + ((B[1][i] - C[i])**2)) / 2
+print("Выборочная дисперсия", D)
