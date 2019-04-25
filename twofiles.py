@@ -27,17 +27,17 @@
 
 
 B = []
-lot = open('1981.csv')
-B.append(pos(lot))
-lot = open('1992.csv')
-B.append(pos(lot))
+n = 2  # Количество лет
+for i in [1983, 1992]:
+    lot = open('{id}.csv'.format(id=i))
+    B.append(pos(lot))
 print(B)
 
 C = [0] * 36
 for i in range(36):
-    C[i] = (B[0][i] + B[1][i]) / 2
+    C[i] = (B[0][i] + B[1][i]) / n
 print(C)  # Выборочное среднее
 D = [0] * 36
 for i in range(36):
-    D[i] = ((B[0][i] - C[i])**2 + (B[1][i] - C[i])**2) / 2
+    D[i] = ((B[0][i] - C[i])**2 + (B[1][i] - C[i])**2) / n
 print(D)  # Выборочная дисперсия
