@@ -28,7 +28,7 @@
 
 B = []
 n = 2  # Количество лет
-for i in [1983, 1992]:
+for i in [1991, 1992]:
     lot = open('{id}.csv'.format(id=i))
     B.append(pos(lot))
 print(B)
