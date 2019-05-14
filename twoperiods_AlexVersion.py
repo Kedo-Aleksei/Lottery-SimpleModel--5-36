@@ -1,4 +1,5 @@
 def pos(fin):
+    '''Returns list K which contains probabilities of 36 numbers.'''
     A = list(fin)
     A.pop(0)
     A.pop(0)  # Удаляем первые две строки
