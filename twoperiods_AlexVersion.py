@@ -70,3 +70,15 @@ for i in range(36):
     x = max(x, D[i])
 print('Максимальное из стандартных отклонений')
 print(x)
+
+plt.plot(C1, "bo")
+plt.title("Средние выборочные 1 периода")
+plt.ylabel('Вероятность')
+plt.xlabel('Номер')
+plt.show()
+
+plt.plot(C2, "bo")
+plt.title("Средние выборочные 2 периода")
+plt.ylabel('Вероятность')
+plt.xlabel('Номер')
+plt.show()
