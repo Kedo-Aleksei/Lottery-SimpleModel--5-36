@@ -74,7 +74,7 @@ for i in range(36):
 print('Максимальное из стандартных отклонений')
 print(x)
 
-plt.plot(C1, "bo", С2, "go")
+plt.plot(C1, "bo", C2, "go")
 plt.title("Средние выборочные 1 (син.) и 2 (зел.) периодов")
 plt.xlabel('Номер')
 plt.ylabel('Вероятность (%)')
