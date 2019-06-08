@@ -62,13 +62,6 @@ for i in range(36):
 print('Выборочное стандартное отклонение')
 print(D)  # Выборочное стандартное отклонение
 
-#X = [[], []]*36
-#j = 1
-#for i in range(36):
-    #X[j][i] = abs(C2[i] - C1[i])
-    #j = j + 1
-#print(X)
-
 X = [0]*36
 for i in range(36):
     X[i] = abs(C2[i] - C1[i])
