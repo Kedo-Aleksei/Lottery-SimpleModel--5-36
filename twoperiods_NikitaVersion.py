@@ -53,12 +53,6 @@ for i in range(36):
 print('Выборочное среднее 2 периода')
 print(C2)  # Выборочное среднее 2 периода
 
-x = 0  # Максимальное расхождение средних (после уберем, если не нужно)
-for i in range(36):
-    x = max(x, abs(C1[i] - C2[i]))
-print('Максимальное расхождение средних')
-print(x)
-
 C = [0] * 36
 for i in range(36):
     C[i] = (C1[i] + C2[i]) / 2
@@ -68,13 +62,30 @@ for i in range(36):
 print('Выборочное стандартное отклонение')
 print(D)  # Выборочное стандартное отклонение
 
-x = 0  # Максимальное из стандартных отклонений (после уберем, если не нужно)
-for i in range(36):
-    x = max(x, D[i])
-print('Максимальное из стандартных отклонений')
-print(x)
+#X = [[], []]*36
+#j = 1
+#for i in range(36):
+    #X[j][i] = abs(C2[i] - C1[i])
+    #j = j + 1
+#print(X)
 
-plt.plot(C1, "bo", C2, "go")
+X = [0]*36
+for i in range(36):
+    X[i] = abs(C2[i] - C1[i])
+print(X)
+
+E = []
+for i in range(1, 37):
+    E.append(i)
+
+Y = [0]*36
+for i in range(36):
+    Y[i] = [X[i], E[i]]
+Y.sort()
+print(Y)
+
+plt.plot(E, C1, "bo", E, C2, "go")
+plt.axis([0, 37, 0, 5])
 plt.title("Средние выборочные 1 (син.) и 2 (зел.) периодов")
 plt.xlabel('Номер')
 plt.ylabel('Вероятность (%)')
