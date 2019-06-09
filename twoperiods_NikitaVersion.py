@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def pos(fin):
@@ -62,24 +63,60 @@ for i in range(36):
 print('Выборочное стандартное отклонение')
 print(D)  # Выборочное стандартное отклонение
 
-X = [0]*36
+X = [0]*36  #Расхождение для каждого числа
 for i in range(36):
     X[i] = abs(C2[i] - C1[i])
 print(X)
 
-E = []
+E = []  #Список из 36 чисел
 for i in range(1, 37):
     E.append(i)
 
 Y = [0]*36
 for i in range(36):
     Y[i] = [X[i], E[i]]
-Y.sort()
-print(Y)
+Y.sort()  #Ранжированный список чисел и их расхождений по годам (от меньшего к большему)
+
+Z = [0]*36  #Список ранжированных по величине расхождения чисел
+for i in range(36):
+    Z[i] = str(Y[i][1])
+print(Z)
+
+Q = [0]*36  #Список ранжированных расхождений
+for i in range(36):
+    Q[i] = Y[i][0]
+print(Q)
 
 plt.plot(E, C1, "bo", E, C2, "go")
 plt.axis([0, 37, 0, 5])
 plt.title("Средние выборочные 1 (син.) и 2 (зел.) периодов")
 plt.xlabel('Номер')
+plt.ylabel('Вероятность (%)')
+plt.show()
+
+plt.subplots(1, 1, figsize=(10, 5))
+plt.bar(Z, Q)
+plt.title("Расхождение средних выборочных значений по 2 периодам")
+plt.xlabel('Номер')
+plt.ylabel('Величина расхождения')
+plt.show()
+
+T22a = [0]*6
+for i in range(6):
+    T22a[i] = B1[i][21]
+T22b = [0]*6
+for i in range(6):
+    T22b[i] = B2[i][21]
+T22 = T22a + T22b
+
+L = ['1981', '1982', '1983', '1984', '1985',
+     '1986', '1987', '1988', '1989', '1990',
+     '1991', '1992']
+
+plt.subplots(1, 1, figsize=(10, 5))
+plt.scatter(L, T22, c='red', s=30, alpha=0.9)
+plt.axis([-1, 12, 0, 5])
+plt.title("Выборочные вероятности числа 22")
+plt.xlabel('Год')
 plt.ylabel('Вероятность (%)')
 plt.show()
