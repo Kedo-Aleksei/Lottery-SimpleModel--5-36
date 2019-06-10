@@ -66,7 +66,6 @@ print(D)  # Выборочное стандартное отклонение
 X = [0]*36  #Расхождение для каждого числа
 for i in range(36):
     X[i] = abs(C2[i] - C1[i])
-print(X)
 
 E = []  #Список из 36 чисел
 for i in range(1, 37):
@@ -80,16 +79,22 @@ Y.sort()  #Ранжированный список чисел и их расхо
 Z = [0]*36  #Список ранжированных по величине расхождения чисел
 for i in range(36):
     Z[i] = str(Y[i][1])
+print('Список чисел по возрастанию расхождения')
 print(Z)
+
 
 Q = [0]*36  #Список ранжированных расхождений
 for i in range(36):
     Q[i] = Y[i][0]
+print('Числа, отсортированые по величине отхождения')
 print(Q)
 
-plt.plot(E, C1, "bo", E, C2, "go")
+plt.subplots(1, 1, figsize=(10, 5))
+aaa = plt.scatter(E, C1, c='blue', s=30, alpha=0.9, label='1 период')
+bbb = plt.scatter(E, C2, c='green', s=30, alpha=0.9, label='2 период')
+plt.legend()
 plt.axis([0, 37, 0, 5])
-plt.title("Средние выборочные 1 (син.) и 2 (зел.) периодов")
+plt.title("Средние выборочные 1 и 2 периодов")
 plt.xlabel('Номер')
 plt.ylabel('Вероятность (%)')
 plt.show()
@@ -101,22 +106,27 @@ plt.xlabel('Номер')
 plt.ylabel('Величина расхождения')
 plt.show()
 
-T22a = [0]*6
-for i in range(6):
-    T22a[i] = B1[i][21]
-T22b = [0]*6
-for i in range(6):
-    T22b[i] = B2[i][21]
-T22 = T22a + T22b
-
-L = ['1981', '1982', '1983', '1984', '1985',
+years = ['1981', '1982', '1983', '1984', '1985',
      '1986', '1987', '1988', '1989', '1990',
      '1991', '1992']
 
-plt.subplots(1, 1, figsize=(10, 5))
-plt.scatter(L, T22, c='red', s=30, alpha=0.9)
-plt.axis([-1, 12, 0, 5])
-plt.title("Выборочные вероятности числа 22")
-plt.xlabel('Год')
-plt.ylabel('Вероятность (%)')
-plt.show()
+stable_numbers = [22, 7, 1, 2, 24, 26]
+for number in stable_numbers:
+    Ta = [0]*6
+    for i in range(6):
+        Ta[i] = B1[i][number - 1]
+    Tb = [0]*6
+    for i in range(6):
+        Tb[i] = B2[i][number - 1]
+    T = Ta + Tb
+    plt.subplots(1, 1, figsize=(10, 5))
+    aaa = plt.scatter(years, T, c='blue', s=30, alpha=0.9)
+    plt.axis([-0.5, 11.5, 0, 5])
+    plt.legend(handles=[plt.axhline(y=C[number - 1],
+                                    color='k', linestyle='-',
+                                    label='Среднее выборочное значение')],
+               loc=1)
+    plt.title('Выборочные вероятности числа %i' %number)
+    plt.xlabel('Год')
+    plt.ylabel('Вероятность (%)')
+    plt.show()
