@@ -1,7 +1,11 @@
-def LenPos(p, n):
-    z = 1.65
-    l = z * sqrt(p * (1 - p) / n)
-    return p - l, p + l
+from math import sqrt
+
+
+def interval(p, n):
+    z = 1.65  # 90% Доверительный интервал
+    le = z * sqrt(p * (1 - p) / n)
+    return max(p - le, 0), p + le
+
 
 def pos(fin):
     '''Returns list K which contains probabilities of 36 numbers.'''
@@ -32,9 +36,8 @@ def pos(fin):
     return K
 
 
-lot = open('1982.csv', encoding='utf8')
-lot1 = lot
-L = len(list(lot1))
-print(L)
+lot = open('1982.csv')
 B = pos(lot)
-
+L = len(list(open('1982.csv'))) - 2
+for i in range(len(B)):
+    print(interval(B[i] / 100, L))
