@@ -1,6 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+def LenPos(p, n):
+    z = 1.65
+    l = z * sqrt(p * (1 - p) / n)
+    return p - l, p + l
 
 def pos(fin):
     '''Returns list K which contains probabilities of 36 numbers.'''
@@ -59,7 +63,6 @@ I = np.argsort(R)  # Индексы отсортированного списк�
 print(I)
 R.sort()
 print(R)
-#  Можно сделать сортировку по максимальной дисперсии?
 
 
 # B1 = []
