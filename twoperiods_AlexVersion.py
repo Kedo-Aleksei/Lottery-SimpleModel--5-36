@@ -1,10 +1,13 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from math import sqrt
 
-def LenPos(p, n):
-    z = 1.65
-    l = z * sqrt(p * (1 - p) / n)
-    return p - l, p + l
+
+def interval(p, n):
+    z = 1.65  # 90% Доверительный интервал
+    le = z * sqrt(p * (1 - p) / n)
+    return [max((p - le), 0) * 100, p + le * 100]
+
 
 def pos(fin):
     '''Returns list K which contains probabilities of 36 numbers.'''
@@ -48,8 +51,8 @@ for i in range(36):
 print('Выборочное среднее')
 print(C)  # Выборочное среднее
 
-N = [0] * 36  # Максимальное расхождение вероятностей по годам
-M = [100] * 36  # Минимальное расхождение вероятностей по годам
+N = [0] * 36  # Максимальное из вероятностей по годам
+M = [100] * 36  # Минимальное из вероятностей по годам
 for i in range(36):
     for j in range(12):
         N[i] = max(N[i], B[j][i])
