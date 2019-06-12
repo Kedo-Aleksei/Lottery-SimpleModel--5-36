@@ -32,7 +32,6 @@ def pos(fin):
     return K
 
 
-
 B1 = []
 n = 6  # Количество лет для периода
 for i in [1981, 1982, 1983, 1984, 1985, 1986]:
@@ -71,7 +70,7 @@ for i in [1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992
     L = len(list(open('{id}.csv'.format(id=i)))) - 2
     for j in range(len(B)):
         F[i - 1981][j] = interval(B[j] / 100, L)
-print(F[0][0], F[1][0])
+
 
 B = []
 n = 12  # Количество лет для периода
@@ -85,6 +84,16 @@ for i in range(36):
             B[6][i] + B[7][i] + B[8][i] + B[9][i] + B[10][i] + B[11][i]) / n
 print('Выборочное среднее')
 print(C)  # Выборочное среднее
+
+V = [0] * 36
+for i in range(36):
+    V[i] = interval(C[i] / 100, 12)
+V1 = [0] * 36
+for i in range(36):
+    V1[i] = V[i][1]
+V2 = [0] * 36
+for i in range(36):
+    V2[i] = V[i][0]
 
 D = [0] * 36
 for i in range(36):
@@ -118,11 +127,24 @@ for i in range(36):
 print('Числа, отсортированые по величине отхождения')
 print(Q)
 
+EE = [0] * 36
+for i in range(36):
+    EE[i] = str(E[i])
+
 plt.subplots(1, 1, figsize=(10, 5))
-aaa = plt.scatter(E, C1, c='blue', s=30, alpha=0.9, label='1 период')
-bbb = plt.scatter(E, C2, c='green', s=30, alpha=0.9, label='2 период')
+plt.bar(EE, V1, bottom=V2, edgecolor='black', color='blue', alpha=0.65)
+plt.scatter(EE, C, c='black', s=30, alpha=1)
+plt.axis([-1, 36, 0, 10])
+plt.title("Средние выборочные за 12 лет и 90%-ные доверительные интервалы")
+plt.xlabel('Номер')
+plt.ylabel('Вероятность (%)')
+plt.show()
+
+plt.subplots(1, 1, figsize=(10, 5))
+plt.scatter(EE, C1, c='blue', s=30, alpha=0.9, label='1 период')
+plt.scatter(EE, C2, c='green', s=30, alpha=0.9, label='2 период')
 plt.legend()
-plt.axis([0, 37, 0, 5])
+plt.axis([-1, 36, 0, 5])
 plt.title("Средние выборочные 1 и 2 периодов")
 plt.xlabel('Номер')
 plt.ylabel('Вероятность (%)')
