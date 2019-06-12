@@ -1,6 +1,9 @@
 import csv
 
 A = list(open('ulam_matrix.csv'))
+A = A[0]
+A = A.split(',')
+A = list(map(int, A))
 
 mat = [[0] * len(A) for i in range(len(A))]
 st, m = 1, 0
