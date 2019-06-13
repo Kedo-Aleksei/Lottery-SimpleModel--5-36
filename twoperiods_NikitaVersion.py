@@ -157,16 +157,16 @@ VV = [0] * 36
 for i in range(36):
     VV[i] = V1[i] - V2[i]
 
-plt.subplots(1, 1, figsize=(10, 5))
+plt.subplots(1, 1, figsize=(11, 6))
 plt.bar(EE, height=VV, bottom=V2, edgecolor='black', color='blue', alpha=0.65)
 plt.scatter(EE, C, c='black', s=30, alpha=1)
-plt.axis([-1, 36, 0, 6])
+plt.axis([-1, 36, 0, 8])
 plt.title("Средние выборочные за 12 лет и 90%-ные доверительные интервалы")
 plt.xlabel('Номер')
 plt.ylabel('Вероятность (%)')
 plt.show()
 
-plt.subplots(1, 1, figsize=(10, 5))
+plt.subplots(1, 1, figsize=(11, 6))
 plt.scatter(EE, C1, c='blue', s=30, alpha=0.9, label='1 период')
 plt.scatter(EE, C2, c='green', s=30, alpha=0.9, label='2 период')
 plt.legend()
@@ -176,8 +176,8 @@ plt.xlabel('Номер')
 plt.ylabel('Вероятность (%)')
 plt.show()
 
-plt.subplots(1, 1, figsize=(10, 5))
-plt.bar(Z, Q)
+plt.subplots(1, 1, figsize=(11, 6))
+plt.bar(Z, Q, color='blue', edgecolor='black', alpha=0.65)
 plt.title("Максимальное расхождение выборочных значений за 2 периода")
 plt.xlabel('Номер')
 plt.ylabel('Величина расхождения')
@@ -196,7 +196,7 @@ for number in top_numbers:
     for i in range(6):
         Tb[i] = B2[i][int(number) - 1]
     T = Ta + Tb
-    plt.subplots(1, 1, figsize=(10, 5))
+    plt.subplots(1, 1, figsize=(11, 6))
     plt.scatter(years, T, c='black', s=30, alpha=1)
     H = [0] * 12
     T = [0] * 12
@@ -204,7 +204,7 @@ for number in top_numbers:
         H[int(year) - 1981] = F[int(year) - 1981][int(number) - 1][1]
         T[int(year) - 1981] = F[int(year) - 1981][int(number) - 1][0]
     plt.bar(years, height=H, bottom=T, edgecolor='black', color='blue', alpha=0.65)
-    plt.axis([-0.5, 11.5, 0, 20])
+    plt.axis([-0.5, 11.5, 0, 40])
     plt.legend(handles=[plt.axhline(y=C[int(number) - 1],
                                     color='k', linestyle='-',
                                     label='Среднее выборочное значение')],
@@ -212,5 +212,5 @@ for number in top_numbers:
     plt.title('Выборочные вероятности и доверительные интервалы числа %i' % int(number))
     plt.xlabel('Год')
     plt.ylabel('Вероятность (%)')
-    plt.text(-0.25, 18.75, 'Уровень доверия = 90%')
+    plt.text(-0.25, 37.75, 'Уровень доверия = 90%')
     plt.show()
