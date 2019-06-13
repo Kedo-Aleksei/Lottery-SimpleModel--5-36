@@ -141,7 +141,7 @@ for i in range(36):
 
 plt.subplots(1, 1, figsize=(11, 6))
 plt.bar(EE, height=VV, bottom=V2, edgecolor='black', color='blue', alpha=0.65)
-plt.scatter(EE, C, c='black', s=30, alpha=1)
+plt.scatter(EE, C, c='black', s=40, alpha=1)
 plt.axis([-1, 36, 0, 8])
 plt.title("Средние выборочные за 12 лет и 90%-ные доверительные интервалы")
 plt.xlabel('Номер')
@@ -179,7 +179,7 @@ for number in top_numbers:
         Tb[i] = B2[i][int(number) - 1]
     T = Ta + Tb
     plt.subplots(1, 1, figsize=(11, 6))
-    plt.scatter(years, T, c='black', s=30, alpha=1)
+    plt.scatter(years, T, c='black', s=50, alpha=1)
     H = [0] * 12
     T = [0] * 12
     for year in years:
