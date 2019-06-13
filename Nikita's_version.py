@@ -162,7 +162,7 @@ plt.subplots(1, 1, figsize=(11, 6))
 plt.bar(Z, Q, color='blue', edgecolor='black', alpha=0.65)
 plt.title("Максимальное расхождение выборочных значений за 2 периода")
 plt.xlabel('Номер')
-plt.ylabel('Величина расхождения')
+plt.ylabel('Величина расхождения (%)')
 plt.show()
 
 years = ['1981', '1982', '1983', '1984', '1985',
