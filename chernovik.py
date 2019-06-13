@@ -36,8 +36,29 @@ def pos(fin):
     return K
 
 
-lot = open('1982.csv')
-B = pos(lot)
-L = len(list(open('1982.csv'))) - 2
-for i in range(len(B)):
-    print(interval(B[i] / 100, L))
+F = [[0] * 36, [0] * 36, [0] * 36, [0] * 36, [0] * 36, [0] * 36,
+     [0] * 36, [0] * 36, [0] * 36, [0] * 36, [0] * 36, [0] * 36]  # Интервалы в очередности год, число
+S = [[], [], [], [], [], [], [], [], [], [], [], []]  # Выигрышные номера по годам и тиражам
+for i in [1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992]:
+    B = pos(open('{id}.csv'.format(id=i)))
+    L = len(list(open('{id}.csv'.format(id=i)))) - 2
+    for j in range(len(B)):
+        F[i - 1981][j] = interval(B[j] / 100, L)
+    A = list(open('{id}.csv'.format(id=i)))
+    A.pop(0)
+    A.pop(0)  # Удаляем первые две строки
+    for s in A:
+        s = s[:-1]  # Удаляем \n
+        s = s.split(';')
+        s = s[1:6]
+        for k in range(5):
+            S[i - 1981].append(int(s[k]))
+NN = [[], [], [], [], [], [], [], [], [], [], [], []]  # Сколько раз выигрышное число встречалось по годам
+for i in range(12):
+    for j in range(36):
+        NN[i].append(S[i].count(j + 1))
+SNN = [0] * 36  # Сколько раз число встретилось за все годы
+for i in range(12):
+    for j in range(36):
+        SNN[j] += NN[i][j]
+print(SNN)
