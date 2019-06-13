@@ -58,8 +58,8 @@ print(C2)  # Выборочное среднее 2 периода
 
 def interval(p, n):
     z = 1.65  # 90% Доверительный интервал
-    le = z * sqrt(p * (1 - p) / n)
-    return [max((p - le), 0) * 100, p + le * 100]
+    le = z * sqrt((p * (1 - p)) / n)
+    return [max((p - le), 0) * 100, (p + le) * 100]
 
 
 F = [[0] * 36, [0] * 36, [0] * 36, [0] * 36, [0] * 36, [0] * 36,
@@ -70,7 +70,6 @@ for i in [1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992
     L = len(list(open('{id}.csv'.format(id=i)))) - 2
     for j in range(len(B)):
         F[i - 1981][j] = interval(B[j] / 100, L)
-
 
 B = []
 n = 12  # Количество лет для периода
@@ -87,40 +86,38 @@ print(C)  # Выборочное среднее
 
 V = [0] * 36
 for i in range(36):
-    V[i] = interval(C[i] / 100, 12)
+    V[i] = interval(C[i] / 100, 51 * 12)
 V1 = [0] * 36
 for i in range(36):
     V1[i] = V[i][1]
 V2 = [0] * 36
 for i in range(36):
     V2[i] = V[i][0]
-
+print(V[0], V1[0], V2[0], C[0])
 D = [0] * 36
 for i in range(36):
     D[i] = ((C1[i] - C[i]) ** 2 + (C2[i] - C[i]) ** 2) ** (1 / 2) / 2
 print('Выборочное стандартное отклонение')
 print(D)  # Выборочное стандартное отклонение
 
-N = [0] * 36  # Максимальное расхождение вероятностей по годам
-for i in range(36):
-    for j in range(12):
-        N[i] = max(N[i], B[j][i])
-
-R = [0] * 36  # Максимальное из вероятностей по годам
-M = [100] * 36  # Минимальное из вероятностей по годам
+R = [0] * 36  # Максимальное расхождение вероятностей по годам
+M = [100] * 36
 for i in range(36):
     for j in range(12):
         R[i] = max(R[i], B[j][i])
         M[i] = min(M[i], B[j][i])
-
 N = [0] * 36
 for i in range(36):
     N[i] = R[i] - M[i]
 
+E = []  # Список из 36 чисел
+for i in range(1, 37):
+    E.append(i)
+
 Y = [0] * 36
 for i in range(36):
     Y[i] = [N[i], i + 1]
-Y.sort()  # Ранжированный список чисел и их расхождений (средних)
+Y.sort()  #Ранжированный список чисел и их расхождений (средних)
 
 Z = [0] * 36  # Список ранжированных по величине расхождения чисел
 for i in range(36):
@@ -138,8 +135,12 @@ EE = [0] * 36
 for i in range(36):
     EE[i] = str(i + 1)
 
+VV = [0] * 36
+for i in range(36):
+    VV[i] = V1[i] - V2[i]
+
 plt.subplots(1, 1, figsize=(10, 5))
-plt.bar(EE, V1, bottom=V2, edgecolor='black', color='blue', alpha=0.65)
+plt.bar(EE, height=VV, bottom=V2, edgecolor='black', color='blue', alpha=0.65)
 plt.scatter(EE, C, c='black', s=30, alpha=1)
 plt.axis([-1, 36, 0, 10])
 plt.title("Средние выборочные за 12 лет и 90%-ные доверительные интервалы")
@@ -165,7 +166,8 @@ plt.ylabel('Величина расхождения')
 plt.show()
 
 years = ['1981', '1982', '1983', '1984', '1985',
-     '1986', '1987', '1988', '1989', '1990', '1991', '1992']
+     '1986', '1987', '1988', '1989', '1990',
+     '1991', '1992']
 
 top_numbers = [Z[0], Z[1], Z[2], Z[-3], Z[-2], Z[-1]]  # Топ-3 устойчивых и неустойчивых номеров
 for number in top_numbers:
@@ -184,7 +186,7 @@ for number in top_numbers:
     for year in years:
         H[int(year) - 1981] = F[int(year) - 1981][int(number) - 1][1]
         T[int(year) - 1981] = F[int(year) - 1981][int(number) - 1][0]
-    plt.bar(years, H, bottom=T, edgecolor='black', color='blue', alpha=0.65)
+    plt.bar(years, height=H, bottom=T, edgecolor='black', color='blue', alpha=0.65)
     plt.axis([-0.5, 11.5, 0, 15])
     plt.legend(handles=[plt.axhline(y=C[int(number) - 1],
                                     color='k', linestyle='-',
