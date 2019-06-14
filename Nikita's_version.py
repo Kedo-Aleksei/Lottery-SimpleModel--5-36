@@ -86,9 +86,26 @@ for i in range(36):
     C[i] = (B[0][i] + B[1][i] + B[2][i] + B[3][i] + B[4][i] + B[5][i] +
             B[6][i] + B[7][i] + B[8][i] + B[9][i] + B[10][i] + B[11][i]) / n
 
+E = []  # Список из 36 чисел
+for i in range(1, 37):
+    E.append(i)
+
+G = [0] * 36
+for i in range(36):
+    G[i] = [C[i], E[i]]
+G.sort()
+
+S = [0] * 36
+for i in range(36):
+    S[i] = G[i][0]
+
+W = [0] * 36
+for i in range(36):
+    W[i] = str(G[i][1])
+
 V = [0] * 36
 for i in range(36):
-    V[i] = interval(C[i] / 100, 51 * 12)
+    V[i] = interval(G[i][0] / 100, 51 * 12)
 V1 = [0] * 36
 for i in range(36):
     V1[i] = V[i][1]
@@ -105,10 +122,6 @@ for i in range(36):
 N = [0] * 36
 for i in range(36):
     N[i] = R[i] - M[i]
-
-E = []  # Список из 36 чисел
-for i in range(1, 37):
-    E.append(i)
 
 Y = [0] * 36
 for i in range(36):
@@ -132,8 +145,8 @@ for i in range(36):
     VV[i] = V1[i] - V2[i]
 
 plt.subplots(1, 1, figsize=(11, 6))
-plt.bar(EE, height=VV, bottom=V2, edgecolor='black', color='blue', alpha=0.65)
-plt.scatter(EE, C, c='black', s=40, alpha=1)
+plt.bar(W, height=VV, bottom=V2, edgecolor='black', color='blue', alpha=0.65)
+plt.scatter(W, S, c='black', s=40, alpha=1)
 plt.axis([-1, 36, 0, 8])
 plt.title("Средние выборочные за 12 лет и 90%-ные доверительные интервалы")
 plt.xlabel('Номер')
@@ -177,8 +190,11 @@ for number in top_numbers:
     for year in years:
         H[int(year) - 1981] = F[int(year) - 1981][int(number) - 1][1]
         T[int(year) - 1981] = F[int(year) - 1981][int(number) - 1][0]
-    plt.bar(years, height=H, bottom=T, edgecolor='black', color='blue', alpha=0.65)
-    plt.axis([-0.5, 11.5, 0, 40])
+    HT = [0] * 12
+    for i in range(12):
+        HT[i] = H[i] - T[i]
+    plt.bar(years, height=HT, bottom=T, edgecolor='black', color='blue', alpha=0.65)
+    plt.axis([-0.5, 11.5, 0, 20])
     plt.legend(handles=[plt.axhline(y=C[int(number) - 1],
                                     color='k', linestyle='-',
                                     label='Среднее выборочное значение')],
@@ -186,5 +202,5 @@ for number in top_numbers:
     plt.title('Выборочные вероятности и доверительные интервалы числа %i' % int(number))
     plt.xlabel('Год')
     plt.ylabel('Вероятность (%)')
-    plt.text(-0.25, 37.75, 'Уровень доверия = 90%')
+    plt.text(-0.25, 18.75, 'Уровень доверия = 90%')
     plt.show()
