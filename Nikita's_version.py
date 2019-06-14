@@ -67,21 +67,13 @@ for i in [1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992
         s = s[1:6]
         for k in range(5):
             S[i - 1981].append(int(s[k]))
-NN = [[], [], [], [], [], [], [], [], [], [], [], []]  # Сколько раз число встречалось по годам
-for i in range(12):
-    for j in range(36):
-        NN[i].append(S[i].count(j + 1))
-SNN = [0] * 36  # Сколько раз число встречалось за все годы
-for i in range(12):
-    for j in range(36):
-        SNN[j] += NN[i][j]
 
 F = [[0] * 36, [0] * 36, [0] * 36, [0] * 36, [0] * 36, [0] * 36,
      [0] * 36, [0] * 36, [0] * 36, [0] * 36, [0] * 36, [0] * 36]  # Интервалы в очередности год, число
 for i in [1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992]:
     B = pos(open('{id}.csv'.format(id=i)))
     for j in range(36):
-        F[i - 1981][j] = interval(B[j] / 100, NN[i - 1981][j])
+        F[i - 1981][j] = interval(B[j] / 100, 51)
 
 B = []
 n = 12  # Количество лет для периода
@@ -96,7 +88,7 @@ for i in range(36):
 
 V = [0] * 36
 for i in range(36):
-    V[i] = interval(C[i] / 100, SNN[i])
+    V[i] = interval(C[i] / 100, 51 * 12)
 V1 = [0] * 36
 for i in range(36):
     V1[i] = V[i][1]
@@ -121,7 +113,7 @@ for i in range(1, 37):
 Y = [0] * 36
 for i in range(36):
     Y[i] = [N[i], i + 1]
-Y.sort()  #Ранжированный список чисел и их расхождений (средних)
+Y.sort()  # Ранжированный список чисел и их расхождений (средних)
 
 Z = [0] * 36  # Список ранжированных по величине расхождения чисел
 for i in range(36):
@@ -179,7 +171,7 @@ for number in top_numbers:
         Tb[i] = B2[i][int(number) - 1]
     T = Ta + Tb
     plt.subplots(1, 1, figsize=(11, 6))
-    plt.scatter(years, T, c='black', s=50, alpha=1)
+    plt.scatter(years, T, color='black', s=50, alpha=1)
     H = [0] * 12
     T = [0] * 12
     for year in years:
@@ -196,4 +188,3 @@ for number in top_numbers:
     plt.ylabel('Вероятность (%)')
     plt.text(-0.25, 37.75, 'Уровень доверия = 90%')
     plt.show()
-    
