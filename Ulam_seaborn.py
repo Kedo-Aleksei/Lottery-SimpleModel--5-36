@@ -8,5 +8,6 @@ import matplotlib_colorbar as pltc
 
 A = pd.read_csv('matrix.csv').values
 
-sns.heatmap(A, vmin=0, vmax=1, cmap = 'winter', center=None, robust=False, annot=None, fmt='.2g', annot_kws=None, linewidths=0, linecolor='white', cbar=True, cbar_kws=None, cbar_ax=None, square=False, xticklabels='auto', yticklabels='auto', mask=None, ax=None)
+plt.figure(figsize=(16, 16))
+sns.heatmap(A, vmin=0, vmax=1, cmap = "CMRmap", center=None, robust=False, annot=None, fmt='.2g', annot_kws=None, linewidths=0, linecolor='white', cbar=True, cbar_ax=None, square=False, xticklabels=False, yticklabels=False, mask=None, ax=None)
 plt.show()
